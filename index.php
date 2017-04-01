@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: zhangsf
- * Date: 2016/10/30
- * Time: 0:37
+ * User: sf
+ * Date: 2017/4/2
+ * Time: 1:50
  */
 
 // 检测PHP环境
