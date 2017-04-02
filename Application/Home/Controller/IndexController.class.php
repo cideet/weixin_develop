@@ -61,7 +61,11 @@ class IndexController extends \Think\Controller
                 $fromUser = $postObj->toUserName;
                 $time = time();
                 $MsgType = 'text';
-                $content = '欢迎关注我们的微信公众号';
+                //$content = '欢迎关注我们的微信公众号';
+                $content = '公众账号：' . $postObj->ToUserName;
+                $content .= '微信用户的openid：' . $postObj->FromUserName;
+                $content .= '关注时间：' . date("Y-m-d H:i:s", $time);
+                $content .= '事件类型：' . $postObj->Event;
                 // 回复文本消息（微信要发送出去的数据包）
                 // <xml>
                 // <ToUserName><![CDATA[toUser]]></ToUserName>
