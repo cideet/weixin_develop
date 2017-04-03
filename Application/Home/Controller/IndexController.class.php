@@ -84,7 +84,31 @@ class IndexController extends \Think\Controller
                 $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
                 echo $info;
             }
-
+        } elseif ($postObj->MsgType == 'text') {
+            if ($postObj->Content == '张三丰') {
+                // 回复文本消息
+                // <xml>
+                // <ToUserName><![CDATA[toUser]]></ToUserName>
+                // <FromUserName><![CDATA[fromUser]]></FromUserName>
+                // <CreateTime>12345678</CreateTime>
+                // <MsgType><![CDATA[text]]></MsgType>
+                // <Content><![CDATA[你好]]></Content>
+                // </xml>
+                $template = '<xml>
+                            <ToUserName><![CDATA[%s]]></ToUserName>
+                            <FromUserName><![CDATA[%s]]></FromUserName>
+                            <CreateTime>%s</CreateTime>
+                            <MsgType><![CDATA[%s]]></MsgType>
+                            <Content><![CDATA[%s]]></Content>
+                            </xml>';
+                $toUser = $postObj->FromUserName;
+                $fromUser = $postObj->ToUserName;
+                $time = time();
+                $MsgType = 'text';
+                $content = '张三丰正在努力的学习微信开发';
+                $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
+                echo $info;
+            }
         }
 
     }
