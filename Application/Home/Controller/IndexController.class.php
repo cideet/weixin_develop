@@ -142,6 +142,9 @@ class IndexController extends \Think\Controller
                 case 'tel':
                     $content = '18312345678';
                     break;
+                case 'vdouw':
+                    $content = '<a href="http://www.vdouw.com/">点击跳转到“微豆网”官网</a>';
+                    break;
                 default:
                     $content = '默认回复的文字';
             }
