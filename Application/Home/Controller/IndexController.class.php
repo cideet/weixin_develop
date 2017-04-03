@@ -183,10 +183,19 @@ class IndexController extends \Think\Controller
                 $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
                 echo $info;
             }
-
         }
-
     }
+
+    function http_curl_1(){
+        $ch = curl_init();
+        $url = 'http://www.thinkphp.cn/';
+        curl_setopt($ch,CURLOPT_URL,$url);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        $output = curl_exec($ch);
+        curl_close($ch);
+        var_dump($output);
+    }
+
 
 
 }
