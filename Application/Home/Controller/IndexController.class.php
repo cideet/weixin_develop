@@ -74,13 +74,7 @@ class IndexController extends \Think\Controller
                 // <MsgType><![CDATA[text]]></MsgType>
                 // <Content><![CDATA[你好]]></Content>
                 // </xml>
-                $template = "<xml>
-                            <ToUserName><![CDATA[%s]]></ToUserName>
-                            <FromUserName><![CDATA[%s]]></FromUserName>
-                            <CreateTime>%s</CreateTime>
-                            <MsgType><![CDATA[%s]]></MsgType>
-                            <Content><![CDATA[%s]]></Content>
-                            </xml>";
+                $template = "<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content></xml>";
                 $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
                 echo $info;
             }
@@ -120,20 +114,9 @@ class IndexController extends \Think\Controller
                         'url' => 'http://www.vdouw.com'
                     )
                 );
-                $template = '<xml>
-                         <ToUserName><![CDATA[%s]]></ToUserName>
-                         <FromUserName><![CDATA[%s]]></FromUserName>
-                         <CreateTime>%s</CreateTime>
-                         <MsgType><![CDATA[%s]]></MsgType>
-                         <ArticleCount>' . count($arr) . '</ArticleCount>
-                         <Articles>';
+                $template = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><ArticleCount>' . count($arr) . '</ArticleCount><Articles>';
                 foreach ($arr as $key => $value) {
-                    $template .= '<item>
-                             <Title><![CDATA[' . $value["title"] . ']]></Title>
-                             <Description><![CDATA[' . $value["description"] . ']]></Description>
-                             <PicUrl><![CDATA[' . $value["picUrl"] . ']]></PicUrl>
-                             <Url><![CDATA[' . $value["url"] . ']]></Url>
-                             </item>';
+                    $template .= '<item><Title><![CDATA[' . $value["title"] . ']]></Title><Description><![CDATA[' . $value["description"] . ']]></Description><PicUrl><![CDATA[' . $value["picUrl"] . ']]></PicUrl><Url><![CDATA[' . $value["url"] . ']]></Url></item>';
                 }
                 $template .= '</Articles></xml>';
                 $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
@@ -163,70 +146,23 @@ class IndexController extends \Think\Controller
                         'url' => 'http://www.vdouw.com'
                     )
                 );
-                $template = '<xml>
-                         <ToUserName><![CDATA[%s]]></ToUserName>
-                         <FromUserName><![CDATA[%s]]></FromUserName>
-                         <CreateTime>%s</CreateTime>
-                         <MsgType><![CDATA[%s]]></MsgType>
-                         <ArticleCount>' . count($arr) . '</ArticleCount>
-                         <Articles>';
+                $template = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><ArticleCount>' . count($arr) . '</ArticleCount><Articles>';
                 foreach ($arr as $key => $value) {
-                    $template .= '<item>
-                             <Title><![CDATA[' . $value["title"] . ']]></Title>
-                             <Description><![CDATA[' . $value["description"] . ']]></Description>
-                             <PicUrl><![CDATA[' . $value["picUrl"] . ']]></PicUrl>
-                             <Url><![CDATA[' . $value["url"] . ']]></Url>
-                             </item>';
+                    $template .= '<item><Title><![CDATA[' . $value["title"] . ']]></Title><Description><![CDATA[' . $value["description"] . ']]></Description><PicUrl><![CDATA[' . $value["picUrl"] . ']]></PicUrl><Url><![CDATA[' . $value["url"] . ']]></Url></item>';
                 }
                 $template .= '</Articles></xml>';
                 $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
                 echo $info;
             } else {
-//                // 回复文本消息
-//                // <xml>
-//                // <ToUserName><![CDATA[toUser]]></ToUserName>
-//                // <FromUserName><![CDATA[fromUser]]></FromUserName>
-//                // <CreateTime>12345678</CreateTime>
-//                // <MsgType><![CDATA[text]]></MsgType>
-//                // <Content><![CDATA[你好]]></Content>
-//                // </xml>
-//                $template = '<xml>
-//                            <ToUserName><![CDATA[%s]]></ToUserName>
-//                            <FromUserName><![CDATA[%s]]></FromUserName>
-//                            <CreateTime>%s</CreateTime>
-//                            <MsgType><![CDATA[%s]]></MsgType>
-//                            <Content><![CDATA[%s]]></Content>
-//                            </xml>';
-//                $toUser = $postObj->FromUserName;
-//                $fromUser = $postObj->ToUserName;
-//                $time = time();
-//                $MsgType = 'text';
-//                $content = '张三丰正在努力的学习微信开发';
-//                $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
-//                echo $info;
-//            } elseif ($postObj->Content == 'tel') {
-//                $template = '<xml>
-//                            <ToUserName><![CDATA[%s]]></ToUserName>
-//                            <FromUserName><![CDATA[%s]]></FromUserName>
-//                            <CreateTime>%s</CreateTime>
-//                            <MsgType><![CDATA[%s]]></MsgType>
-//                            <Content><![CDATA[%s]]></Content>
-//                            </xml>';
-//                $toUser = $postObj->FromUserName;
-//                $fromUser = $postObj->ToUserName;
-//                $time = time();
-//                $MsgType = 'text';
-//                $content = '18312345678';
-//                $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
-//                echo $info;
-//            }
-                $template = '<xml>
-                            <ToUserName><![CDATA[%s]]></ToUserName>
-                            <FromUserName><![CDATA[%s]]></FromUserName>
-                            <CreateTime>%s</CreateTime>
-                            <MsgType><![CDATA[%s]]></MsgType>
-                            <Content><![CDATA[%s]]></Content>
-                            </xml>';
+                // 回复文本消息
+                // <xml>
+                // <ToUserName><![CDATA[toUser]]></ToUserName>
+                // <FromUserName><![CDATA[fromUser]]></FromUserName>
+                // <CreateTime>12345678</CreateTime>
+                // <MsgType><![CDATA[text]]></MsgType>
+                // <Content><![CDATA[你好]]></Content>
+                // </xml>
+                $template = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content></xml>';
                 $toUser = $postObj->FromUserName;
                 $fromUser = $postObj->ToUserName;
                 $time = time();
