@@ -85,7 +85,60 @@ class IndexController extends \Think\Controller
                 echo $info;
             }
         } elseif ($postObj->MsgType == 'text') {
-//            if ($postObj->Content == '张三丰') {
+            if ($postObj->Content == 'tuwen') {
+                // 回复图文消息
+                // <xml>
+                // <ToUserName><![CDATA[toUser]]></ToUserName>
+                // <FromUserName><![CDATA[fromUser]]></FromUserName>
+                // <CreateTime>12345678</CreateTime>
+                // <MsgType><![CDATA[news]]></MsgType>
+                // <ArticleCount>2</ArticleCount>
+                // <Articles>
+                // <item>
+                // <Title><![CDATA[title1]]></Title>
+                // <Description><![CDATA[description1]]></Description>
+                // <PicUrl><![CDATA[picurl]]></PicUrl>
+                // <Url><![CDATA[url]]></Url>
+                // </item>
+                // <item>
+                // <Title><![CDATA[title]]></Title>
+                // <Description><![CDATA[description]]></Description>
+                // <PicUrl><![CDATA[picurl]]></PicUrl>
+                // <Url><![CDATA[url]]></Url>
+                // </item>
+                // </Articles>
+                // </xml>
+                $toUser = $postObj->FromUserName;
+                $fromUser = $postObj->ToUserName;
+                $createTime = time();
+                $MsgType = 'news';
+                $arr = array(
+                    array(
+                        'title' => '这是标题',
+                        'description' => '这是很长很长的简介。感谢大神的分享，感谢这4年学程序的道路上遇到的每一个恩师：刘明轩、张恩民、李炎恢、何山、白俊遥，感谢工作中遇到的每一位同事在技术上的引导，也感谢网络中认识的一大拨良师良友。Photoshop在我的工作中已经生疏，代码却在我的生命中打开了另外一扇大门；世事凡俗本不是我擅长，就让技术去成就我的梦想。',
+                        'picUrl' => 'http://wx.vdouw.com/testpic.jpg',
+                        'url' => 'http://www.vdouw.com'
+                    )
+                );
+                $template = '<xml>
+                         <ToUserName><![CDATA[%s]]></ToUserName>
+                         <FromUserName><![CDATA[%s]]></FromUserName>
+                         <CreateTime>%s</CreateTime>
+                         <MsgType><![CDATA[%s]]></MsgType>
+                         <ArticleCount>' . count($arr) . '</ArticleCount>
+                         <Articles>';
+                foreach ($arr as $key => $value) {
+                    $template .= '<item>
+                             <Title><![CDATA[' . $value["title"] . ']]></Title>
+                             <Description><![CDATA[' . $value["description"] . ']]></Description>
+                             <PicUrl><![CDATA[' . $value["picUrl"] . ']]></PicUrl>
+                             <Url><![CDATA[' . $value["url"] . ']]></Url>
+                             </item>';
+                }
+                $template .= '</Articles></xml>';
+                $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
+                echo $info;
+            } else {
 //                // 回复文本消息
 //                // <xml>
 //                // <ToUserName><![CDATA[toUser]]></ToUserName>
@@ -124,32 +177,34 @@ class IndexController extends \Think\Controller
 //                $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
 //                echo $info;
 //            }
-            $template = '<xml>
+                $template = '<xml>
                             <ToUserName><![CDATA[%s]]></ToUserName>
                             <FromUserName><![CDATA[%s]]></FromUserName>
                             <CreateTime>%s</CreateTime>
                             <MsgType><![CDATA[%s]]></MsgType>
                             <Content><![CDATA[%s]]></Content>
                             </xml>';
-            $toUser = $postObj->FromUserName;
-            $fromUser = $postObj->ToUserName;
-            $time = time();
-            $MsgType = 'text';
-            switch (trim($postObj->Content)) {
-                case '张三丰':
-                    $content = '张三丰正在努力的学习微信开发';
-                    break;
-                case 'tel':
-                    $content = '18312345678';
-                    break;
-                case 'vdouw':
-                    $content = '<a href="http://www.vdouw.com/">点击跳转到“微豆网”官网</a>';
-                    break;
-                default:
-                    $content = '默认回复的文字';
+                $toUser = $postObj->FromUserName;
+                $fromUser = $postObj->ToUserName;
+                $time = time();
+                $MsgType = 'text';
+                switch (trim($postObj->Content)) {
+                    case '张三丰':
+                        $content = '张三丰正在努力的学习微信开发';
+                        break;
+                    case 'tel':
+                        $content = '18312345678';
+                        break;
+                    case 'vdouw':
+                        $content = '<a href="http://www.vdouw.com/">点击跳转到“微豆网”官网</a>';
+                        break;
+                    default:
+                        $content = '默认回复的文字';
+                }
+                $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
+                echo $info;
             }
-            $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
-            echo $info;
+
         }
 
     }
