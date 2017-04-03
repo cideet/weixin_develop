@@ -75,3 +75,5 @@ function replyOnlyText($postObj, $content)
     $info = sprintf($template, $toUser, $fromUser, $createTime, $MsgType, $content);
     echo $info;
 }
+
+
