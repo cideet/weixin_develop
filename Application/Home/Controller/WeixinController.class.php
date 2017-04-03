@@ -18,17 +18,7 @@ class WeixinController extends \Think\Controller
     // 微信验证接口
     public function index()
     {
-        //1、将timestamp,nonce,token按字典序排序
-        $timestamp = $_GET["timestamp"];
-        $nonce = $_GET["nonce"];
-        $token = "vdouw_study_weixin_develop";
-        $signature = $_GET["signature"];
-        $echostr = $_GET["echostr"];
-        //形成数组，然后按字典序排序
-        $array = array();
-        $array = array($timestamp, $nonce, $token);
-        sort($array);
-        $str = sha1(implode($array));
+        $str = weixinVerify();
         if ($str == $signature && $echostr) {
             //第一次接入微信API接口的时候
             echo $echostr;
@@ -45,28 +35,17 @@ class WeixinController extends \Think\Controller
         $postXML = $GLOBALS['HTTP_RAW_POST_DATA'];
         $postObj = simplexml_load_string($postXML);
         if (strtolower($postObj->MsgType) == 'event') {
-            // 判断该数据包是否是订阅的事件推送 如果是关注事件subscribe
+            // 关注事件subscribe
             if (strtolower($postObj->Event) == 'subscribe') {
-                // 回复用户消息
-                $toUser = $postObj->FromUserName;
-                $fromUser = $postObj->toUserName;
-                $time = time();
-                $MsgType = 'text';
-                //$content = '欢迎关注我们的微信公众号';
+                $createTime = time();
                 $content = '公众账号：' . $postObj->ToUserName;
                 $content .= '微信用户的openid：' . $postObj->FromUserName;
-                $content .= '关注时间：' . date("Y-m-d H:i:s", $time);
+                $content .= '关注时间：' . date("Y-m-d H:i:s", $createTime);
                 $content .= '事件类型：' . $postObj->Event;
-                $template = "<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content></xml>";
-                $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
-                echo $info;
+                subscribe($postObj, $content, $createTime);
             }
         } elseif ($postObj->MsgType == 'text') {
             if ($postObj->Content == 'tuwen') {
-                $toUser = $postObj->FromUserName;
-                $fromUser = $postObj->ToUserName;
-                $createTime = time();
-                $MsgType = 'news';
                 $arr = array(
                     array(
                         'title' => '这是标题',
@@ -75,13 +54,7 @@ class WeixinController extends \Think\Controller
                         'url' => 'http://www.vdouw.com'
                     )
                 );
-                $template = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><ArticleCount>' . count($arr) . '</ArticleCount><Articles>';
-                foreach ($arr as $key => $value) {
-                    $template .= '<item><Title><![CDATA[' . $value["title"] . ']]></Title><Description><![CDATA[' . $value["description"] . ']]></Description><PicUrl><![CDATA[' . $value["picUrl"] . ']]></PicUrl><Url><![CDATA[' . $value["url"] . ']]></Url></item>';
-                }
-                $template .= '</Articles></xml>';
-                $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
-                echo $info;
+                replyOnePicAndText($postObj, $arr);
             } elseif ($postObj->Content == 'duotuwen') {
                 $arr = array(
                     array(
@@ -103,17 +76,12 @@ class WeixinController extends \Think\Controller
                         'url' => 'http://www.vdouw.com'
                     )
                 );
-                responseMsg($postObj, $arr);
+                replyMorePicAndText($postObj, $arr);
             } else {
                 // 回复文本消息
-                $template = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content></xml>';
-                $toUser = $postObj->FromUserName;
-                $fromUser = $postObj->ToUserName;
-                $time = time();
-                $MsgType = 'text';
                 switch (trim($postObj->Content)) {
                     case '张三丰':
-                        $content = '张三丰正在努力的学习微信开发';
+                        $content = '张三丰正在努力学习微信开发';
                         break;
                     case 'tel':
                         $content = '18312345678';
@@ -124,8 +92,7 @@ class WeixinController extends \Think\Controller
                     default:
                         $content = '默认回复的文字';
                 }
-                $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
-                echo $info;
+                replyOnlyText($postObj, $content);
             }
         }
     }
