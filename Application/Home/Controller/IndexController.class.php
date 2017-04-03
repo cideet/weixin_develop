@@ -52,9 +52,9 @@ class IndexController extends \Think\Controller
         // $postObj->CreateTime = '';
         // $postObj->MsgType = '';
         // $postObj->Event = '';
-        // 判断该数据包是否是订阅的事件推送
+        //
         if (strtolower($postObj->MsgType) == 'event') {
-            // 如果是关注事件subscribe
+            // 判断该数据包是否是订阅的事件推送 如果是关注事件subscribe
             if (strtolower($postObj->Event) == 'subscribe') {
                 // 回复用户消息
                 $toUser = $postObj->FromUserName;
@@ -106,6 +106,21 @@ class IndexController extends \Think\Controller
                 $time = time();
                 $MsgType = 'text';
                 $content = '张三丰正在努力的学习微信开发';
+                $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
+                echo $info;
+            }elseif ($postObj->Content=='tel'){
+                $template = '<xml>
+                            <ToUserName><![CDATA[%s]]></ToUserName>
+                            <FromUserName><![CDATA[%s]]></FromUserName>
+                            <CreateTime>%s</CreateTime>
+                            <MsgType><![CDATA[%s]]></MsgType>
+                            <Content><![CDATA[%s]]></Content>
+                            </xml>';
+                $toUser = $postObj->FromUserName;
+                $fromUser = $postObj->ToUserName;
+                $time = time();
+                $MsgType = 'text';
+                $content = '18312345678';
                 $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
                 echo $info;
             }
