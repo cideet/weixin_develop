@@ -186,16 +186,39 @@ class IndexController extends \Think\Controller
         }
     }
 
-    function http_curl_1(){
+    // 获取access_token
+    function getWxAccessToken1()
+    {
+        $appid = C('APPID');
+        $appsecret = C('AppSecret');
+        //echo('appid:' . $appid . '<hr>appsecret:' . $appsecret . '<hr>');
+        $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' . $appid . '&secret=' . $appsecret;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);                //执行HTTP请求
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);        //若不为1，curl_exec将直接输入结果而不能保存到变量
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);    //有时漏了ssl_verifypeer这条，一直返回false;
+        $res = curl_exec($ch);
+        curl_close($ch);
+        if (curl_errno($ch)) {
+            var_dump(curl_error($ch));
+        }
+        $arr = json_decode($res, true);     //输出数组
+        $acceccToken = $arr['access_token'];
+        echo($acceccToken);
+    }
+
+
+    // 测试curl的功能
+    function http_curl_1()
+    {
         $ch = curl_init();
         $url = 'http://www.thinkphp.cn/';
-        curl_setopt($ch,CURLOPT_URL,$url);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $output = curl_exec($ch);
         curl_close($ch);
         var_dump($output);
     }
-
 
 
 }
