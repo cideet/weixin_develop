@@ -43,23 +43,7 @@ class WeixinController extends \Think\Controller
     {
         // 获取到微信推送过来的POST数据（XML格式）
         $postXML = $GLOBALS['HTTP_RAW_POST_DATA'];
-        // 处理消息类型，并设置回复类型和内容
-        // 关注/取消关注事件
-        // 推送XML数据包示例（微信接收的数据包）
-        // <xml>
-        // <ToUserName><![CDATA[toUser]]></ToUserName>
-        // <FromUserName><![CDATA[FromUser]]></FromUserName>
-        // <CreateTime>123456789</CreateTime>
-        // <MsgType><![CDATA[event]]></MsgType>
-        // <Event><![CDATA[subscribe]]></Event>
-        // </xml>
         $postObj = simplexml_load_string($postXML);
-        // $postObj->ToUserName = '';
-        // $postObj->FromUserName = '';
-        // $postObj->CreateTime = '';
-        // $postObj->MsgType = '';
-        // $postObj->Event = '';
-        //
         if (strtolower($postObj->MsgType) == 'event') {
             // 判断该数据包是否是订阅的事件推送 如果是关注事件subscribe
             if (strtolower($postObj->Event) == 'subscribe') {
@@ -73,14 +57,6 @@ class WeixinController extends \Think\Controller
                 $content .= '微信用户的openid：' . $postObj->FromUserName;
                 $content .= '关注时间：' . date("Y-m-d H:i:s", $time);
                 $content .= '事件类型：' . $postObj->Event;
-                // 回复文本消息（微信要发送出去的数据包）
-                // <xml>
-                // <ToUserName><![CDATA[toUser]]></ToUserName>
-                // <FromUserName><![CDATA[fromUser]]></FromUserName>
-                // <CreateTime>12345678</CreateTime>
-                // <MsgType><![CDATA[text]]></MsgType>
-                // <Content><![CDATA[你好]]></Content>
-                // </xml>
                 $template = "<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content></xml>";
                 $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
                 echo $info;
@@ -107,16 +83,29 @@ class WeixinController extends \Think\Controller
                 $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
                 echo $info;
             } elseif ($postObj->Content == 'duotuwen') {
-                responseMsg($postObj);
+                $arr = array(
+                    array(
+                        'title' => '这是标题111',
+                        'description' => '这是很长很长的简介1',
+                        'picUrl' => 'http://wx.vdouw.com/testpic2.jpg',
+                        'url' => 'http://www.vdouw.com'
+                    ),
+                    array(
+                        'title' => '这是标题222',
+                        'description' => '这是很长很长的简介2',
+                        'picUrl' => 'http://wx.vdouw.com/testpic.jpg',
+                        'url' => 'http://www.vdouw.com'
+                    ),
+                    array(
+                        'title' => '这是标题333这是标题333这是标题333这是标题333这是标题333这是标题333这是标题333这是标题333这是标题333这是标题333这是标题333这是标题333这是标题333这是标题333这是标题333这是标题333',
+                        'description' => '这是很长很长的简介3这是很长很长的简介3这是很长很长的简介3这是很长很长的简介3这是很长很长的简介3这是很长很长的简介3这是很长很长的简介3这是很长很长的简介3这是很长很长的简介3这是很长很长的简介3这是很长很长的简介3',
+                        'picUrl' => 'http://wx.vdouw.com/testpic2.jpg',
+                        'url' => 'http://www.vdouw.com'
+                    )
+                );
+                responseMsg($postObj, $arr);
             } else {
                 // 回复文本消息
-                // <xml>
-                // <ToUserName><![CDATA[toUser]]></ToUserName>
-                // <FromUserName><![CDATA[fromUser]]></FromUserName>
-                // <CreateTime>12345678</CreateTime>
-                // <MsgType><![CDATA[text]]></MsgType>
-                // <Content><![CDATA[你好]]></Content>
-                // </xml>
                 $template = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content></xml>';
                 $toUser = $postObj->FromUserName;
                 $fromUser = $postObj->ToUserName;
