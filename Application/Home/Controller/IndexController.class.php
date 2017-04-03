@@ -202,9 +202,29 @@ class IndexController extends \Think\Controller
         if (curl_errno($ch)) {
             var_dump(curl_error($ch));
         }
-        $arr = json_decode($res, true);     //输出数组
+        $arr = json_decode($res, true);     //json转数组
         $acceccToken = $arr['access_token'];
-        echo($acceccToken);
+        echo('<script>console.log("' . $acceccToken . '")</script>');
+        return $acceccToken;
+    }
+
+    // 获取微信服务器IP地址
+    function getWxServerIp()
+    {
+        $accessToken = $this->getWxAccessToken1();
+        //echo($accessToken);
+        $url = 'https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token=' . $accessToken;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);                //执行HTTP请求
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);        //若不为1，curl_exec将直接输入结果而不能保存到变量
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);    //有时漏了ssl_verifypeer这条，一直返回false;
+        $res = curl_exec($ch);
+        curl_close($ch);
+        if (curl_errno($ch)) {
+            var_dump(curl_error($ch));
+        }
+        $arr = json_decode($res, true);     //json转数组
+        var_dump($arr);
     }
 
 
