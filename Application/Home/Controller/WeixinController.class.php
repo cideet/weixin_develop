@@ -18,7 +18,17 @@ class WeixinController extends \Think\Controller
     // 微信验证接口
     public function index()
     {
-        $str = weixinVerify();
+        //1、将timestamp,nonce,token按字典序排序
+        $timestamp = $_GET["timestamp"];
+        $nonce = $_GET["nonce"];
+        $token = C('TOKEN');
+        $signature = $_GET["signature"];
+        $echostr = $_GET["echostr"];
+        //形成数组，然后按字典序排序
+        $array = array();
+        $array = array($timestamp, $nonce, $token);
+        sort($array);
+        $str = sha1(implode($array));
         if ($str == $signature && $echostr) {
             //第一次接入微信API接口的时候
             echo $echostr;
@@ -90,7 +100,7 @@ class WeixinController extends \Think\Controller
                         $content = '<a href="http://www.vdouw.com/">点击跳转到“微豆网”官网</a>';
                         break;
                     default:
-                        $content = '默认回复的文字';
+                        $content = '没有找到相关信息';
                 }
                 replyOnlyText($postObj, $content);
             }
@@ -149,6 +159,39 @@ class WeixinController extends \Think\Controller
         $output = curl_exec($ch);
         curl_close($ch);
         var_dump($output);
+    }
+
+
+    // 创建微信测试号的自定义菜单
+    public function defineItem()
+    {
+        //目前微信接口的调用方式都是通过curl post/get
+        header("content-type:text/html;charset=utf-8");
+        // $access_token = getWxAccessToken();     //网上说：一定要填账号本身的token，不要填成测试的那个token
+        $access_token = getWxTestAccessToken();
+        $url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" . $access_token;
+        $postArr = array(
+            "button" => array(
+                array("name" => urlencode("菜单一"), "type" => "click", "key" => "item1"),
+                array(
+                    "name" => urlencode("菜单2"),
+                    "sub_button" => array(
+                        array("name" => urlencode("歌曲11"), "type" => "click", "key" => "songs"),
+                        array("name" => urlencode("电影22"), "type" => "view", "url" => "http://www.baidu.com")
+                    )
+                ),
+                array("name" => urlencode("链接到百度"), "type" => "view", "url" => "http://www.qq.com")
+            ),
+        );
+        echo("<hr>");
+        print_r($access_token);
+        echo("<hr>");
+        $postJson = urldecode(json_encode($postArr));
+        print_r($postJson);
+        echo("<hr>");
+        $res = http_curl($url, "post", "json", $postJson);
+        print_r($res);
+        echo("<hr>");
     }
 
 

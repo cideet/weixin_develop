@@ -13,6 +13,8 @@ Token(令牌) vdouw_study_weixin_develop
 EncodingAESKey(消息加解密密钥) 3cZdRp0uREDEQdg5dCEwQ6wPiGB4VJDDYmBNL7c3rPz
 消息加解密方式 兼容模式
 
+微信公众平台测试帐号
+
 
 
 
