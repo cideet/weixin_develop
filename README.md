@@ -18,6 +18,15 @@
 
 接入微信公众账号API 验证配置
 代码详见：http://weixin.vdouw.com/index.php/home/index/index
+接入概述
+接入微信公众平台开发，开发者需要按照如下步骤完成：
+1、填写服务器配置
+2、验证服务器地址的有效性
+3、依据接口文档实现业务逻辑
+文档详见：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421135319
+
+
+
 
 
 
