@@ -14,6 +14,15 @@
 进入公众号，输入“vdouw|imooc”，自动回复“zhangsanfeng|hello weixin”
 编辑模式不常用，开发者模式才是我们学习的重点
 
+微信只接受80端口
+
+接入微信公众账号API 验证配置
+代码详见：http://weixin.vdouw.com/index.php/home/index/index
+
+
+
+
+
 
 URL(服务器地址) http://wx.vdouw.com/index.php/Home/Index/index
 Token(令牌) vdouw_study_weixin_develop
