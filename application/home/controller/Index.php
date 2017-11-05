@@ -13,7 +13,7 @@ class Index extends \think\Controller
     /**
      * 微信验证接口
      */
-    public function index()
+    public function accessauth()
     {
         //1、将timestamp,nonce,token按字典序排序
         $timestamp = $_GET["timestamp"];
