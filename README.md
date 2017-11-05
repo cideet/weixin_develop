@@ -17,7 +17,7 @@
 微信只接受80端口
 
 接入微信公众账号API 验证配置
-代码详见：http://weixin.vdouw.com/index.php/home/index/accessauth
+代码详见：http://weixin.vdouw.com/index.php/home/index/index
 接入概述
 接入微信公众平台开发，开发者需要按照如下步骤完成：
 1、填写服务器配置
