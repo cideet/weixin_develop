@@ -29,6 +29,9 @@ TP5接口 http://weixin.vdouw.com/index.php/home/index/index
 TP3接口 http://weixinold.vdouw.com/index.php/Home/Test/index
 经过改变微信的服务器配置，发现TP5的代码验证不了，虽然是一样的代码
 
+同僚基于TP5的微信开发地址：
+https://git.coding.net/faith2016/MyWechats.git
+
 
 
 
