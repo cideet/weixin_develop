@@ -68,8 +68,8 @@ class IndexController extends \Think\Controller
                 $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
                 echo $info;
             }
-        } elseif (strtolower($postObj->MsgType) == 'text') {
-            switch (strtolower(trim($postObj->Content))) {
+        } elseif (strtolower($postObj->MsgType) == 'text') {    //接收用户的输入类型
+            switch (strtolower(trim($postObj->Content))) {      //接收用户的输入内容
                 case 1:
                     $content = '您输入了1';
                     break;
