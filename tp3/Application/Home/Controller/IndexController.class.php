@@ -70,7 +70,7 @@ class IndexController extends \Think\Controller
                 $fromUser = $postObj->ToUserName;
                 $time = time();
                 $MsgType = 'text';
-                $content = '欢迎关注我的公众号';
+                $content = '欢迎你，' . $toUser . '关注我的公众号' . $fromUser;
                 $template = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content></xml>';
                 $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
                 echo $info;
