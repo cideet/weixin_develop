@@ -25,8 +25,8 @@
 3、依据接口文档实现业务逻辑
 文档详见：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421135319
 
-TP5接口 http://weixin.vdouw.com/index.php/home/index/index
-TP3接口 http://weixinold.vdouw.com/index.php/Home/Test/index
+TP5接口 http://wx_tp5.vdouw.com/index.php/home/index/index
+TP3接口 http://wx_tp3.vdouw.com/index.php/home/index/index
 经过改变微信的服务器配置，发现TP5的代码验证不了，虽然是一样的代码
 
 
@@ -35,9 +35,9 @@ TP3接口 http://weixinold.vdouw.com/index.php/Home/Test/index
 
 
 
-URL(服务器地址) http://wx.vdouw.com/index.php/Home/Index/index
-Token(令牌) vdouw_study_weixin_develop
-EncodingAESKey(消息加解密密钥) 3cZdRp0uREDEQdg5dCEwQ6wPiGB4VJDDYmBNL7c3rPz
+URL(服务器地址)
+Token(令牌) study_weixin_dev
+EncodingAESKey(消息加解密密钥) HA0VzlwMs4SnN4sRfGBLeSMJxVkYkPJNR3QbQPsbK3F
 消息加解密方式 兼容模式
 
 微信公众平台测试帐号
