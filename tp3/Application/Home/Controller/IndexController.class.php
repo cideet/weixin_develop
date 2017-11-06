@@ -75,19 +75,46 @@ class IndexController extends \Think\Controller
                 $arr = array(
                     array(
                         'title' => 'imooc',
-                        'description' => 'imooc is very cool',
+                        'description' => 'imooc is very cool!!!',
                         'picUrl' => 'http://wx_tp3.vdouw.com/public/images/img.jpg',
                         'url' => 'http://www.imooc.com'
                     )
                 );
-                $template = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><ArticleCount>1</ArticleCount><Articles>';
+                $template = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><ArticleCount>' . count($arr) . '</ArticleCount><Articles>';
                 foreach ($arr as $k => $v) {
                     $template .= '<item><Title><![CDATA[' . $v["title"] . ']]></Title><Description><![CDATA[' . $v["description"] . ']]></Description><PicUrl><![CDATA[' . $v["picUrl"] . ']]></PicUrl><Url><![CDATA[' . $v["url"] . ']]></Url></item>';
                 }
                 $template .= '</Articles></xml>';
                 echo sprintf($template, $toUser, $fromUser, time(), 'news', 'content');
             } elseif (strtolower(trim($postObj->Content)) == 'duotuwen') {
-
+                $toUser = $postObj->FromUserName;
+                $fromUser = $postObj->ToUserName;
+                $arr = array(
+                    array(
+                        'title' => 'imooc',
+                        'description' => 'imooc is very cool!!!',
+                        'picUrl' => 'http://wx_tp3.vdouw.com/public/images/img.jpg',
+                        'url' => 'http://www.imooc.com'
+                    ),
+                    array(
+                        'title' => '微豆网',
+                        'description' => '微豆网 is very cool!!!',
+                        'picUrl' => 'http://wx_tp3.vdouw.com/public/images/img.jpg',
+                        'url' => 'http://blog.vdouw.com'
+                    ),
+                    array(
+                        'title' => '微豆网111',
+                        'description' => '微豆网 is very cool!!!',
+                        'picUrl' => 'http://wx_tp3.vdouw.com/public/images/img.jpg',
+                        'url' => 'http://blog.vdouw.com'
+                    )
+                );
+                $template = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><ArticleCount>' . count($arr) . '</ArticleCount><Articles>';
+                foreach ($arr as $k => $v) {
+                    $template .= '<item><Title><![CDATA[' . $v["title"] . ']]></Title><Description><![CDATA[' . $v["description"] . ']]></Description><PicUrl><![CDATA[' . $v["picUrl"] . ']]></PicUrl><Url><![CDATA[' . $v["url"] . ']]></Url></item>';
+                }
+                $template .= '</Articles></xml>';
+                echo sprintf($template, $toUser, $fromUser, time(), 'news', 'content');
             } else {
                 switch (strtolower(trim($postObj->Content))) {      //接收用户的输入内容
                     case 1:
