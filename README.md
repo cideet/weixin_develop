@@ -39,6 +39,17 @@ TP3接口 http://wx_tp3.vdouw.com/index.php/home/index/index<br>
 详细查看：https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140543<br>
 比如：用户输入“imooc”，自动回复“imooc is good”<br>
 
+AppID: wx4e034056598d48d6<br>
+AppSecret: 0d18631d78954d10f00eaec3a8a56c0f<br>
+
+php的curl函数组可以帮助我们把机器伪装成人的行为来抓取网站<br>
+http_curl测试1: <br>
+http://wx_tp3.vdouw.com/index.php/home/index/http_curl_test1<br>
+
+
+
+
+
 
 
 

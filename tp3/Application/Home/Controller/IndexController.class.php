@@ -143,5 +143,21 @@ class IndexController extends \Think\Controller
         }
     }
 
+    function http_curl_test1()
+    {
+        //1、初始化CURL
+        $ch = curl_init();
+        $url = 'http://www.imooc.com';
+        //2、设置CURL参数
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        //有时漏了ssl_verifypeer这条，一直返回false;
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        //3、采集
+        $output = curl_exec($ch);
+        //4、关闭
+        curl_close($ch);
+        var_dump($output);
+    }
 
 }
