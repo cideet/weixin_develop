@@ -8,7 +8,7 @@
 
 namespace Home\Controller;
 
-class IndexController extends \Think\Controller
+class Index extends \Think\Controller
 {
     public function __construct()
     {
