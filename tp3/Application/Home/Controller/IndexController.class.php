@@ -65,20 +65,29 @@ class IndexController extends \Think\Controller
                 $MsgType = 'text';
                 $content = '欢迎你，' . $toUser . '关注我的公众号' . $fromUser;
                 $template = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content></xml>';
-                //回复消息 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140543
                 $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
                 echo $info;
             }
         } elseif (strtolower($postObj->MsgType) == 'text') {
-            if (strtolower($postObj->Content) == 'imooc') {
-                $template = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content></xml>';
-                $toUser = $postObj->FromUserName;
-                $fromUser = $postObj->ToUserName;
-                $time = time();
-                $MsgType = 'text';
-                $content = 'imooc is very good!!!';
-                echo sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
+            switch (strtolower(trim($postObj->Content))) {
+                case 1:
+                    $content = '您输入了1';
+                    break;
+                case 2:
+                    $content = '您输入了2';
+                    break;
+                case 'imooc':
+                    $content = 'imooc is very good!!!';
+                    break;
+                default:
+                    $content = '这是默认回复的信息';
             }
+            $template = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content></xml>';
+            $toUser = $postObj->FromUserName;
+            $fromUser = $postObj->ToUserName;
+            $time = time();
+            $MsgType = 'text';
+            echo sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
         }
     }
 
