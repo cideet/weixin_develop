@@ -1,6 +1,7 @@
-`oldcode/Application/Runtime/
-`oldcode/Runtime/
-runtime/
+oldcode/Application/Runtime/
+oldcode/Runtime/
+tp3/runtime/
+tp5/runtime/
 .project
 .idea
 
