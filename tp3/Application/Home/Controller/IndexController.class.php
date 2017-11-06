@@ -69,25 +69,50 @@ class IndexController extends \Think\Controller
                 echo $info;
             }
         } elseif (strtolower($postObj->MsgType) == 'text') {    //接收用户的输入类型
-            switch (strtolower(trim($postObj->Content))) {      //接收用户的输入内容
-                case 1:
-                    $content = '您输入了1';
-                    break;
-                case 2:
-                    $content = '您输入了2';
-                    break;
-                case 'imooc':
-                    $content = 'imooc is very good!!!';
-                    break;
-                default:
-                    $content = '这是默认回复的信息';
+            if (strtolower(trim($postObj->Content)) == 'tuwen') {
+                $toUser = $postObj->FromUserName;
+                $fromUser = $postObj->ToUserName;
+                $arr = array(
+                    array(
+                        'title' => 'imooc',
+                        'description' => 'imooc is very cool',
+                        'picUrl' => 'http://wx_tp3.vdouw.com/public/images/img.jpg',
+                        'url' => 'http://www.imooc.com'
+                    )
+                );
+                $template = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><ArticleCount>1</ArticleCount><Articles>';
+                foreach ($arr as $k => $v) {
+                    $template .= '<item><Title><![CDATA[' . $v["title"] . ']]></Title><Description><![CDATA[' . $v["description"] . ']]></Description><PicUrl><![CDATA[' . $v["picUrl"] . ']]></PicUrl><Url><![CDATA[' . $v["url"] . ']]></Url></item>';
+                }
+                $template .= '</Articles></xml>';
+                echo sprintf($template, $toUser, $fromUser, time(), 'news', 'content');
+            } elseif (strtolower(trim($postObj->Content)) == 'duotuwen') {
+
+            } else {
+                switch (strtolower(trim($postObj->Content))) {      //接收用户的输入内容
+                    case 1:
+                        $content = '您输入了1';
+                        break;
+                    case 2:
+                        $content = '您输入了2';
+                        break;
+                    case 'imooc':
+                        $content = 'imooc is very good!!!';
+                        break;
+                    case 'vdouw':
+                        $content = '<a href="http://blog.vdouw.com">微豆网博客</a>';
+                        break;
+                    default:
+                        $content = '这是默认回复的信息';
+                }
+                $template = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content></xml>';
+                $toUser = $postObj->FromUserName;
+                $fromUser = $postObj->ToUserName;
+                $time = time();
+                $MsgType = 'text';
+                echo sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
             }
-            $template = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content></xml>';
-            $toUser = $postObj->FromUserName;
-            $fromUser = $postObj->ToUserName;
-            $time = time();
-            $MsgType = 'text';
-            echo sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
+
         }
     }
 
