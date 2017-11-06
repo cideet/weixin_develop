@@ -54,14 +54,7 @@ class IndexController extends \Think\Controller
         //2、处理消息类型，并设置回复类型和内容
         //将XML转化成对象
         $postObj = simplexml_load_string($postStr);
-//https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140454
-//<xml>
-//<ToUserName><![CDATA[toUser]]></ToUserName>
-//<FromUserName><![CDATA[FromUser]]></FromUserName>
-//<CreateTime>123456789</CreateTime>
-//<MsgType><![CDATA[event]]></MsgType>
-//<Event><![CDATA[subscribe]]></Event>
-//</xml>
+        //https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140454
         //判断该数据包是否是订阅的事件推送，也就是：用户关注或取消关注
         if (strtolower($postObj->MsgType) == 'event') {
             //如果是关注
@@ -72,17 +65,20 @@ class IndexController extends \Think\Controller
                 $MsgType = 'text';
                 $content = '欢迎你，' . $toUser . '关注我的公众号' . $fromUser;
                 $template = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content></xml>';
+                //回复消息 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140543
                 $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
                 echo $info;
             }
-//回复消息 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140543
-//<xml>
-//<ToUserName><![CDATA[toUser]]></ToUserName>
-//<FromUserName><![CDATA[fromUser]]></FromUserName>
-//<CreateTime>12345678</CreateTime>
-//<MsgType><![CDATA[text]]></MsgType>
-//<Content><![CDATA[你好]]></Content>
-//</xml>
+        } elseif (strtolower($postObj->MsgType) == 'text') {
+            if (strtolower($postObj->Content) == 'imooc') {
+                $template = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content></xml>';
+                $toUser = $postObj->FromUserName;
+                $fromUser = $postObj->ToUserName;
+                $time = time();
+                $MsgType = 'text';
+                $content = 'imooc is very good!!!';
+                echo sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
+            }
         }
     }
 
