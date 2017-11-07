@@ -144,7 +144,8 @@ class IndexController extends \Think\Controller
     }
 
     /**
-     * 测试采集，学习过程中调试用，放在最下面即可，别删
+     * 测试采集
+     * 学习过程中调试用，放在最下面即可，别删
      */
     public function http_curl_test1()
     {
@@ -164,7 +165,8 @@ class IndexController extends \Think\Controller
     }
 
     /**
-     * 获取Access_token，学习过程中调试用，放在最下面即可，别删
+     * 获取Access_token
+     * 学习过程中调试用，放在最下面即可，别删
      */
     public function getWxAccessToken_test1()
     {
@@ -179,7 +181,32 @@ class IndexController extends \Think\Controller
         curl_close($ch);
         if (curl_errno($ch)) var_dump(curl_error($ch));
         $arr = json_decode($ret, true);  //JSON转数组
+        echo(json_encode($arr));
+        setcookie('access_token_test1', $arr['access_token']);
+    }
+
+    /**
+     * 获取微信服务器IP地址
+     * 学习过程中调试用，放在最下面即可，别删
+     */
+    public function getWxServerIp_test1()
+    {
+        if (!cookie('access_token_test1')) {
+            $this->getWxAccessToken_test1();
+        }
+        echo(cookie('access_token_test1') . '<hr>');
+        $url = 'https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token=' . cookie('access_token_test1');
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $ret = curl_exec($ch);
+        curl_close($ch);
+        if (curl_errno($ch)) var_dump(curl_error($ch));
+        $arr = json_decode($ret, true);  //JSON转数组
         var_dump($arr);
     }
 
 }
+
+?>

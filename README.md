@@ -50,7 +50,10 @@ http://wx_tp3.vdouw.com/index.php/home/index/http_curl_test1<br>
 详细查看 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140183<br>
 测试地址 http://wx_tp3.vdouw.com/index.php/home/index/getWxAccessToken_test1<br>
 
-
+获取微信服务器IP地址<br>
+如果公众号基于安全等考虑，需要获知微信服务器的IP地址列表，以便进行相关限制，可以通过该接口获得微信服务器IP地址列表或者IP网段信息。<br>
+详细查看 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140187<br>
+测试查看 http://wx_tp3.vdouw.com/index.php/home/index/getWxServerIp_test1<br>
 
 
 
