@@ -28,7 +28,7 @@ class IndexController extends \Think\Controller
         //1、将timestamp,nonce,token按字典序排序
         $nonce = $_GET["nonce"];
         $timestamp = $_GET["timestamp"];
-        $token = 'study_weixin_dev';
+        $token = C('token');
         $signature = $_GET["signature"];
         $echostr = $_GET["echostr"];
         //形成数组，然后按字典序排序
@@ -119,8 +119,8 @@ class IndexController extends \Think\Controller
                         curl_close($ch);
                         if (curl_errno($ch)) var_dump(curl_error($ch));
                         $arr = json_decode($ret, true);  //JSON转数组
-                        $content = "接口可用1000次";
-                        $content .= "测试获取北京的天气：";
+                        $content = "测试接口可用1000次";
+                        $content .= "\n获取北京的天气：";
                         $content .= "\n当前时间：" . $arr['result']['realtime']['date'];
                         $content .= "\n最高温度：" . $arr['result']['realtime']['weather']['temperature'];
                         $content .= "℃\n最低温度：" . $arr['result']['realtime']['weather']['humidity'];
@@ -163,8 +163,8 @@ class IndexController extends \Think\Controller
      */
     public function getWxAccessToken_test1()
     {
-        $AppID = 'wx4e034056598d48d6';
-        $AppSecret = '0d18631d78954d10f00eaec3a8a56c0f';
+        $AppID = C('AppID');
+        $AppSecret = C('AppSecret');
         $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' . $AppID . '&secret=' . $AppSecret;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
