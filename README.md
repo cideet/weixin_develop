@@ -78,6 +78,14 @@ EventKey：事件KEY值，由开发者在创建菜单时设定<br>
 测试地址 http://wx_tp3.vdouw.com/index.php/home/testaccount/sendMsgAll
 根据OpenID列表群发【订阅号不可用，服务号认证后可用】
 
+模板消息<br>
+查看详细 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433751277 <br>
+不同的行业，有不同的模板<br>
+正式的公众号，模板需要单独去申请<br>
+可以申请到15个模板<br>
+一个账号当日发送模板消息次数不能超过10次<br>
+测试地址 http://wx_tp3.vdouw.com/index.php/home/Testaccount/sendTemplateMsg <br>
+
 
 
 

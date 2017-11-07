@@ -68,6 +68,25 @@ class TestaccountController extends \Think\Controller
         var_dump($res);
     }
 
+    public function sendTemplateMsg()
+    {
+        $access_token = getWxTestAccessToken();
+        $url = 'https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=' . $access_token;
+        $array = array(
+            'touser' => 'orrEvxP8LaJIYwU3QJjvwci5M6qw',
+            'template_id' => 'PTB1tjfLGQhQuiXJVow-F8EkTGmnXChczkyIErNRXK0',
+            'url' => 'http://www.imooc.com',
+            'data' => array(
+                'name' => array('value' => 'hello', 'color' => '#172737'),
+                'money' => array('value' => '100元', 'color' => '#172737'),
+                'date' => array('value' => date('Y-m-d H:i:s'), 'color' => '#172737')
+            )
+        );
+        $postJson = json_encode($array);
+        $res = http_curl($url, 'post', 'json', $postJson);
+        var_dump($res);
+    }
+
     /**
      * 自定义菜单
      */
