@@ -63,7 +63,10 @@ http://wx_tp3.vdouw.com/index.php/home/index/http_curl_test1<br>
 公众号接口权限说明<br>
 详细查看 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433401084<br>
 
-
+自定义菜单<br>
+详细查看 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141013<br>
+一级菜单最多3个，二级菜单最多5个<br>
+设置URL http://wx_tp3.vdouw.com/index.php/home/testaccount/custommenu
 
 
 
