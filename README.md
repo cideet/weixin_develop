@@ -46,6 +46,9 @@ php的curl函数组可以帮助我们把机器伪装成人的行为来抓取网�
 http_curl测试1: <br>
 http://wx_tp3.vdouw.com/index.php/home/index/http_curl_test1<br>
 
+获取access_token<br>
+详细查看 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140183<br>
+测试地址 http://wx_tp3.vdouw.com/index.php/home/index/getWxAccessToken_test1<br>
 
 
 
@@ -57,6 +60,10 @@ http://wx_tp3.vdouw.com/index.php/home/index/http_curl_test1<br>
 
 
 
+
+
+
+<br><br><br><br><br><br>
 URL(服务器地址)
 Token(令牌) study_weixin_dev
 EncodingAESKey(消息加解密密钥) HA0VzlwMs4SnN4sRfGBLeSMJxVkYkPJNR3QbQPsbK3F

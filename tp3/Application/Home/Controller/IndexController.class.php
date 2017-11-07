@@ -143,7 +143,10 @@ class IndexController extends \Think\Controller
         }
     }
 
-    function http_curl_test1()
+    /**
+     * 测试采集，学习过程中调试用，放在最下面即可，别删
+     */
+    public function http_curl_test1()
     {
         //1、初始化CURL
         $ch = curl_init();
@@ -158,6 +161,25 @@ class IndexController extends \Think\Controller
         //4、关闭
         curl_close($ch);
         var_dump($output);
+    }
+
+    /**
+     * 获取Access_token，学习过程中调试用，放在最下面即可，别删
+     */
+    public function getWxAccessToken_test1()
+    {
+        $AppID = 'wx4e034056598d48d6';
+        $AppSecret = '0d18631d78954d10f00eaec3a8a56c0f';
+        $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=' . $AppID . '&secret=' . $AppSecret;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        $ret = curl_exec($ch);
+        curl_close($ch);
+        if (curl_errno($ch)) var_dump(curl_error($ch));
+        $arr = json_decode($ret, true);  //JSON转数组
+        var_dump($arr);
     }
 
 }
