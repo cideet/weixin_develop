@@ -59,19 +59,10 @@ class IndexController extends \Think\Controller
         if (strtolower($postObj->MsgType) == 'event') {
             //如果是关注
             if (strtolower($postObj->Event == 'subscribe')) {
-                $toUser = $postObj->FromUserName;
-                $fromUser = $postObj->ToUserName;
-                $time = time();
-                $MsgType = 'text';
-                $content = '欢迎你，' . $toUser . '关注我的公众号' . $fromUser;
-                $template = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content></xml>';
-                $info = sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
-                echo $info;
+                subscribe($postObj);
             }
         } elseif (strtolower($postObj->MsgType) == 'text') {    //接收用户的输入类型
             if (strtolower(trim($postObj->Content)) == 'tuwen') {
-                $toUser = $postObj->FromUserName;
-                $fromUser = $postObj->ToUserName;
                 $arr = array(
                     array(
                         'title' => 'imooc',
@@ -80,15 +71,8 @@ class IndexController extends \Think\Controller
                         'url' => 'http://www.imooc.com'
                     )
                 );
-                $template = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><ArticleCount>' . count($arr) . '</ArticleCount><Articles>';
-                foreach ($arr as $k => $v) {
-                    $template .= '<item><Title><![CDATA[' . $v["title"] . ']]></Title><Description><![CDATA[' . $v["description"] . ']]></Description><PicUrl><![CDATA[' . $v["picUrl"] . ']]></PicUrl><Url><![CDATA[' . $v["url"] . ']]></Url></item>';
-                }
-                $template .= '</Articles></xml>';
-                echo sprintf($template, $toUser, $fromUser, time(), 'news', 'content');
+                replyPicAndText($postObj, $arr);
             } elseif (strtolower(trim($postObj->Content)) == 'duotuwen') {
-                $toUser = $postObj->FromUserName;
-                $fromUser = $postObj->ToUserName;
                 $arr = array(
                     array(
                         'title' => 'imooc',
@@ -109,12 +93,7 @@ class IndexController extends \Think\Controller
                         'url' => 'http://blog.vdouw.com'
                     )
                 );
-                $template = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><ArticleCount>' . count($arr) . '</ArticleCount><Articles>';
-                foreach ($arr as $k => $v) {
-                    $template .= '<item><Title><![CDATA[' . $v["title"] . ']]></Title><Description><![CDATA[' . $v["description"] . ']]></Description><PicUrl><![CDATA[' . $v["picUrl"] . ']]></PicUrl><Url><![CDATA[' . $v["url"] . ']]></Url></item>';
-                }
-                $template .= '</Articles></xml>';
-                echo sprintf($template, $toUser, $fromUser, time(), 'news', 'content');
+                replyPicAndText($postObj, $arr);
             } else {
                 switch (strtolower(trim($postObj->Content))) {      //接收用户的输入内容
                     case 1:
@@ -132,16 +111,12 @@ class IndexController extends \Think\Controller
                     default:
                         $content = '这是默认回复的信息';
                 }
-                $template = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%s</CreateTime><MsgType><![CDATA[%s]]></MsgType><Content><![CDATA[%s]]></Content></xml>';
-                $toUser = $postObj->FromUserName;
-                $fromUser = $postObj->ToUserName;
-                $time = time();
-                $MsgType = 'text';
-                echo sprintf($template, $toUser, $fromUser, $time, $MsgType, $content);
+                replyOnlyText($postObj, $content);
             }
 
         }
     }
+
 
     /**
      * 测试采集
