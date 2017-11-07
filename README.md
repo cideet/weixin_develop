@@ -8,6 +8,8 @@
 微信公众号管理地址 => http://mp.weixin.qq.com<br>
 用户名 => 488703045@qq.com<br>
 
+全局返回码说明 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433747234 <br>
+
 编辑模式和开发者模式<br>
 编辑模式下的自动回复功能<br>
 开发 => 基本配置 => 服务器配置(未启用)<br>
@@ -70,6 +72,13 @@ http://wx_tp3.vdouw.com/index.php/home/index/http_curl_test1<br>
 个性化菜单接口 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1455782296 <br>
 自定义菜单中的click事件，
 EventKey：事件KEY值，由开发者在创建菜单时设定<br>
+
+群发接口<br>
+预览接口 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1481187827_i0l21 <br>
+测试地址 http://wx_tp3.vdouw.com/index.php/home/testaccount/sendMsgAll
+根据OpenID列表群发【订阅号不可用，服务号认证后可用】
+
+
 
 
 

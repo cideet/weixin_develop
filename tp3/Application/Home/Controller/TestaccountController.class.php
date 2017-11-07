@@ -39,6 +39,35 @@ class TestaccountController extends \Think\Controller
         }
     }
 
+    //群发接口
+    public function sendMsgAll()
+    {
+        $accessToken = getWxTestAccessToken();
+        print_r($accessToken);
+        echo('<hr>');
+        $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token=' . $accessToken;  //预览接口
+        //$url = 'https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token=' . $accessToken;  //服务号认证后可用
+        //发送“单文本”
+        $array = array(
+            'touser' => 'orrEvxP8LaJIYwU3QJjvwci5M6qw',
+            'text' => array('content' => 'imooc is very happy'),
+            'msgtype' => 'text'
+        );
+        //发送“单图文”，还有点问题，学了后面再说
+        //$array = array(
+        //    "touser" => "orrEvxP8LaJIYwU3QJjvwci5M6qw",
+        //    "mpnews" => array("media_id" => "QQ9nj-7ctrqA8t3WKU3dQN24IuFV_516MfZRZNnQ0c-BFVkk66jUkPXF49QE9L1l"),
+        //    "msgtype" => "mpnews"
+        //);
+        print_r($array);
+        echo('<hr>');
+        $postJson = json_encode($array);
+        print_r($postJson);
+        echo('<hr>');
+        $res = http_curl($url, 'post', 'json', $postJson);
+        var_dump($res);
+    }
+
     /**
      * 自定义菜单
      */
@@ -159,7 +188,6 @@ class TestaccountController extends \Think\Controller
                 }
                 replyOnlyText($postObj, $content);
             }
-
         }
     }
 
