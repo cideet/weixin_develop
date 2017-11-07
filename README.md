@@ -75,8 +75,8 @@ EventKey：事件KEY值，由开发者在创建菜单时设定<br>
 
 群发接口<br>
 预览接口 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1481187827_i0l21 <br>
-测试地址 http://wx_tp3.vdouw.com/index.php/home/testaccount/sendMsgAll
-根据OpenID列表群发【订阅号不可用，服务号认证后可用】
+测试地址 http://wx_tp3.vdouw.com/index.php/home/testaccount/sendMsgAll <br>
+根据OpenID列表群发【订阅号不可用，服务号认证后可用】 <br>
 
 模板消息<br>
 查看详细 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433751277 <br>
