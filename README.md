@@ -66,7 +66,10 @@ http://wx_tp3.vdouw.com/index.php/home/index/http_curl_test1<br>
 自定义菜单<br>
 详细查看 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141013<br>
 一级菜单最多3个，二级菜单最多5个<br>
-设置URL http://wx_tp3.vdouw.com/index.php/home/testaccount/custommenu
+设置URL http://wx_tp3.vdouw.com/index.php/home/testaccount/custommenu <br>
+个性化菜单接口 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1455782296 <br>
+自定义菜单中的click事件，
+EventKey：事件KEY值，由开发者在创建菜单时设定<br>
 
 
 

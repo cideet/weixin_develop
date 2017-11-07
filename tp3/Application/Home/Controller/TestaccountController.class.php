@@ -50,11 +50,11 @@ class TestaccountController extends \Think\Controller
         $url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" . $access_token;
         $postArr = array(
             "button" => array(
-                array("name" => urlencode("菜单1111"), "type" => "click", "key" => "item1"),
+                array("name" => urlencode("菜单1"), "type" => "click", "key" => "item1"),
                 array(
-                    "name" => urlencode("菜单2222"),
+                    "name" => urlencode("菜单2"),
                     "sub_button" => array(
-                        array("name" => urlencode("歌曲11"), "type" => "click", "key" => "songs"),
+                        array("name" => urlencode("歌曲11"), "type" => "click", "key" => "item2"),
                         array("name" => urlencode("电影22"), "type" => "view", "url" => "http://www.baidu.com")
                     )
                 ),
@@ -80,6 +80,15 @@ class TestaccountController extends \Think\Controller
         if (strtolower($postObj->MsgType) == 'event') {
             if (strtolower($postObj->Event == 'subscribe')) {
                 subscribe($postObj);
+            }
+            if (strtolower($postObj->Event) == 'click') {  //自定义菜单中的click事件
+                if (strtolower($postObj->EventKey) == 'item1') {  //事件KEY值，由开发者在创建菜单时设定
+                    $content = '自定义菜单中的event=>click1';
+                    replyOnlyText($postObj, $content);
+                } elseif (strtolower($postObj->EventKey) == 'item2') {
+                    $content = '自定义菜单中的event=>click2';
+                    replyOnlyText($postObj, $content);
+                }
             }
         } elseif (strtolower($postObj->MsgType) == 'text') {
             if (strtolower(trim($postObj->Content)) == 'tuwen') {
