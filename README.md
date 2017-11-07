@@ -27,6 +27,7 @@
 
 TP5接口 http://wx_tp5.vdouw.com/index.php/home/index/index<br>
 TP3接口 http://wx_tp3.vdouw.com/index.php/home/index/index<br>
+测试号接口（TP3） http://wx_tp3.vdouw.com/index.php/home/testaccount/index <br>
 经过改变微信的服务器配置，发现TP5的代码验证不了，虽然是一样的代码<br>
 
 接收事件推送<br>
@@ -59,9 +60,10 @@ http://wx_tp3.vdouw.com/index.php/home/index/http_curl_test1<br>
 根据城市名查询当地天气，测试方法：输入“天气”即可。<br>
 扩展到获取用户输入：urlencode($postObj->Content)<br>
 
-自定义菜单<br>
-详细查看 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141013<br>
-一级菜单最多3个，二级菜单最多5个<br>
+公众号接口权限说明<br>
+详细查看 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1433401084<br>
+
+
 
 
 
