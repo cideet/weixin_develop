@@ -108,6 +108,24 @@ class IndexController extends \Think\Controller
                     case 'vdouw':
                         $content = '<a href="http://blog.vdouw.com">微豆网博客</a>';
                         break;
+                    case '天气':
+                        $url = 'http://api.avatardata.cn/Weather/Query?key=17ce40f952af4f85aac03c91b46354c3&cityname=北京';
+                        //$url = 'http://api.avatardata.cn/Weather/Query?key=17ce40f952af4f85aac03c91b46354c3&cityname=' . urlencode($postObj->Content);
+                        $ch = curl_init();
+                        curl_setopt($ch, CURLOPT_URL, $url);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                        $ret = curl_exec($ch);
+                        curl_close($ch);
+                        if (curl_errno($ch)) var_dump(curl_error($ch));
+                        $arr = json_decode($ret, true);  //JSON转数组
+                        $content = "接口可用1000次";
+                        $content .= "测试获取北京的天气：";
+                        $content .= "\n当前时间：" . $arr['result']['realtime']['date'];
+                        $content .= "\n最高温度：" . $arr['result']['realtime']['weather']['temperature'];
+                        $content .= "℃\n最低温度：" . $arr['result']['realtime']['weather']['humidity'];
+                        $content .= "℃\n天气：" . $arr['result']['realtime']['weather']['info'];
+                        break;
                     default:
                         $content = '这是默认回复的信息';
                 }

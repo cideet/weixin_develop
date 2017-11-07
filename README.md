@@ -55,6 +55,11 @@ http://wx_tp3.vdouw.com/index.php/home/index/http_curl_test1<br>
 详细查看 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140187<br>
 测试查看 http://wx_tp3.vdouw.com/index.php/home/index/getWxServerIp_test1<br>
 
+第三方查询接口在微信中的使用<br>
+根据城市名查询当地天气，测试方法：输入“天气”即可。<br>
+扩展到获取用户输入：urlencode($postObj->Content)<br>
+
+
 
 
 
