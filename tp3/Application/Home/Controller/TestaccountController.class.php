@@ -16,30 +16,8 @@ class TestaccountController extends \Think\Controller
     }
 
     /**
-     * 微信验证接口
+     * 群发接口
      */
-    public function index()
-    {
-        //1、将timestamp,nonce,token按字典序排序
-        $nonce = $_GET["nonce"];
-        $timestamp = $_GET["timestamp"];
-        $token = C('token');
-        $signature = $_GET["signature"];
-        $echostr = $_GET["echostr"];
-        //形成数组，然后按字典序排序
-        $array = array($timestamp, $nonce, $token);
-        sort($array);
-        $str = sha1(implode($array));
-        if ($str == $signature && $echostr) {
-            //第一次接入微信API接口的时候，就是微信公众平台在验证接入的时候（修改配置）用一次
-            echo $echostr;
-            exit;
-        } else {
-            $this->responseMsg();
-        }
-    }
-
-    //群发接口
     public function sendMsgAll()
     {
         $accessToken = getWxTestAccessToken();
@@ -68,6 +46,9 @@ class TestaccountController extends \Think\Controller
         var_dump($res);
     }
 
+    /**
+     * 模板消息
+     */
     public function sendTemplateMsg()
     {
         $access_token = getWxTestAccessToken();
@@ -120,7 +101,33 @@ class TestaccountController extends \Think\Controller
         echo("<hr>");
     }
 
-    //接受事件推送并回复
+    /**
+     * 微信验证接口
+     */
+    public function index()
+    {
+        //1、将timestamp,nonce,token按字典序排序
+        $nonce = $_GET["nonce"];
+        $timestamp = $_GET["timestamp"];
+        $token = C('token');
+        $signature = $_GET["signature"];
+        $echostr = $_GET["echostr"];
+        //形成数组，然后按字典序排序
+        $array = array($timestamp, $nonce, $token);
+        sort($array);
+        $str = sha1(implode($array));
+        if ($str == $signature && $echostr) {
+            //第一次接入微信API接口的时候，就是微信公众平台在验证接入的时候（修改配置）用一次
+            echo $echostr;
+            exit;
+        } else {
+            $this->responseMsg();
+        }
+    }
+
+    /**
+     * 接受事件推送并回复
+     */
     public function responseMsg()
     {
         $postStr = $GLOBALS['HTTP_RAW_POST_DATA'];
