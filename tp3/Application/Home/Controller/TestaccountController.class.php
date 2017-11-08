@@ -49,7 +49,7 @@ class TestaccountController extends \Think\Controller
             'action_name' => 'QR_LIMIT_SCENE',
             'action_info' => array(
                 'scene' => array(
-                    'scene_id' => 2000
+                    'scene_id' => 3000
                 )
             )
         );
