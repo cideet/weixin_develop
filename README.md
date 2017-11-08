@@ -87,9 +87,12 @@ EventKey：事件KEY值，由开发者在创建菜单时设定 <br>
 测试地址 http://wx_tp3.vdouw.com/index.php/home/Testaccount/sendTemplateMsg <br>
 
 微信网页授权 <br>
+查看详细 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842 <br>
 网页授权获取用户基本信息=>修改=>授权回调页面域名 填入：wx_tp3.vdouw.com <br>
 草料二维码中输入 http://wx_tp3.vdouw.com/index.php/home/Testaccount/getUserBaseInfo <br>
 微信扫描，即可得到用户的基本信息  <br>
+草料二维码中输入 http://wx_tp3.vdouw.com/index.php/home/Testaccount/getUserInfo <br>
+微信扫描，即可得到用户信息  <br>
 比如我们在做一个活动，每个用户只能抽奖3次。 <br>
 用户进入getUserBaseInfo页面，经跳转到getUserOpenId页面。 <br>
 在$ret中可以获取到用户的openid，再从数据库中获取该用户参加抽奖的次数，后续的操作你应该懂了吧。 <br>
