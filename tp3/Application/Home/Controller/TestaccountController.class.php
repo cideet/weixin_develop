@@ -155,15 +155,15 @@ class TestaccountController extends \Think\Controller
         $url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" . $access_token;
         $postArr = array(
             "button" => array(
-                array("name" => urlencode("菜单1"), "type" => "click", "key" => "item1"),
+                array("name" => urlencode("分享页面"), "type" => "view", "url" => "http://wx_tp3.vdouw.com/index.php/home/testaccount/share"),
                 array(
                     "name" => urlencode("菜单2"),
                     "sub_button" => array(
-                        array("name" => urlencode("歌曲11"), "type" => "click", "key" => "item2"),
-                        array("name" => urlencode("电影22"), "type" => "view", "url" => "http://www.baidu.com")
+                        array("name" => urlencode("这是按钮"), "type" => "click", "key" => "item2"),
+                        array("name" => urlencode("链接到百度"), "type" => "view", "url" => "http://www.baidu.com")
                     )
                 ),
-                array("name" => urlencode("链接到百度"), "type" => "view", "url" => "http://www.qq.com")
+                array("name" => urlencode("重置菜单"), "type" => "view", "url" => "http://wx_tp3.vdouw.com/index.php/home/testaccount/custommenu")
             ),
         );
         echo("<hr>");
