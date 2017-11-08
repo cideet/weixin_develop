@@ -19,7 +19,7 @@ define('APP_PATH', './Application/');
 define('RUNTIME_PATH', './Runtime/');
 
 // 定义模板文件默认目录
-define("TMPL_PATH", "./tpl/");
+//define("TMPL_PATH", "./tpl/");
 
 // 引入ThinkPHP入口文件
 require './ThinkPHP/ThinkPHP.php';

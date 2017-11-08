@@ -97,6 +97,19 @@ EventKey：事件KEY值，由开发者在创建菜单时设定 <br>
 用户进入getUserBaseInfo页面，经跳转到getUserOpenId页面。 <br>
 在$ret中可以获取到用户的openid，再从数据库中获取该用户参加抽奖的次数，后续的操作你应该懂了吧。 <br>
 
+微信SDK <br>
+微信JS-SDK说明文档 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141115 <br>
+微信公众平台向网页开发者提供的基于微信内的网页开发工具包，比如分享给朋友，分享到朋友圈 <br>
+1、绑定域名 点击“JS接口安全域名”的编辑按钮 <br>
+2、引入JS文件 http://res.wx.qq.com/open/js/jweixin-1.2.0.js <br>
+3、通过config接口注入权限难配置 <br>
+4、通过ready接口处理成功验证 <br>
+5、通过error接口处理失败验证 <br>
+jsapi_ticket是公众号用于调用微信JS接口的临时票据 <br>
+
+
+
+
 
 
 

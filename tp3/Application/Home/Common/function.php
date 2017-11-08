@@ -7,6 +7,42 @@
  */
 
 /**
+ * 签名算法
+ * @param $len 获取多少位随机数
+ * @param null $chars 随机数产生源
+ * @return string
+ */
+function getRandCode($len = 16)
+{
+    $array = array('a','b','c','d','e','f','g','h','j','k','m','n','p','q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','J','K','M','N','P','Q','R','S','T','U','V','W','X','Y','2','3','4','5','6','7','8','9');
+    $str = '';
+    for ($i = 0; $i <= $len; $i++) {
+        $str .= $array[rand(0, count($array) - 1)];
+    }
+    return $str;
+}
+
+/**
+ * 获取jsapi_ticket票据
+ * jsapi_ticket是公众号用于调用微信JS接口的临时票据
+ * @return mixed
+ */
+function getJsApiTicket()
+{
+    if ($_SESSION['jsapi_ticket_expire_time'] > time() && $_SESSION['jsapi_ticket']) {
+        $jsapi_ticket = $_SESSION['jsapi_ticket'];
+    } else {
+        $access_token = getWxTestAccessToken();
+        $url = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=' . $access_token . '&type=jsapi';
+        $res = http_curl($url);
+        $jsapi_ticket = $res['ticket'];
+        $_SESSION['jsapi_ticket'] = $jsapi_ticket;
+        $_SESSION['jsapi_ticket_expire_time'] = time() + 7200;
+    }
+    return $jsapi_ticket;
+}
+
+/**
  * 万能的curl请求
  * @param $url 接口url
  * @param string $type 请求类型

@@ -16,6 +16,26 @@ class TestaccountController extends \Think\Controller
     }
 
     /**
+     * 分享API
+     */
+    public function share()
+    {
+        //1、获取jsapi_ticket票据
+        $jsapi_ticket = getJsApiTicket();
+        $nonceStr = getRandCode(16);
+        $timestamp = time();
+        $url = 'http://wx_tp3.vdouw.com/index.php/home/testaccount/share';
+        //2、获取signature
+        $signature = 'jsapi_ticket=' . $jsapi_ticket . '&noncestr=' . $nonceStr . '&timestamp=' . $timestamp . '&url=' . $url;
+        $signature = sha1($signature);  //加密
+        $this->assign('appid', C('AppIDTest'));
+        $this->assign('timestamp', $timestamp);
+        $this->assign('nonceStr', $nonceStr);
+        $this->assign('signature', $signature);
+        $this->display('Index/share');
+    }
+
+    /**
      * 获取用户信息
      */
     public function getUserInfo()
