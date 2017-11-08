@@ -106,7 +106,7 @@ EventKey：事件KEY值，由开发者在创建菜单时设定 <br>
 4、通过ready接口处理成功验证 <br>
 5、通过error接口处理失败验证 <br>
 jsapi_ticket是公众号用于调用微信JS接口的临时票据 <br>
-
+分享给朋友和分享到朋友圈测试地址 http://wx_tp3.vdouw.com/index.php/home/testaccount/share <br>
 
 
 
