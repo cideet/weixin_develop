@@ -16,6 +16,51 @@ class TestaccountController extends \Think\Controller
     }
 
     /**
+     * 生成临时二维码
+     */
+    public function getTimeQrCode()
+    {
+        $access_token = getWxTestAccessToken();
+        $url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $access_token;
+        $postArr = array(
+            'expire_seconds' => 604800, //24*60*60*7
+            'action_name' => 'QR_SCENE',
+            'action_info' => array(
+                'scene' => array(
+                    'scene_id' => 2000
+                )
+            )
+        );
+        $postJson = json_encode($postArr);
+        $res = http_curl($url, 'post', 'json', $postJson);
+        $ticket = $res['ticket'];
+        $url2 = 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' . urlencode($ticket);
+        echo('<img src="' . $url2 . '"/>');
+    }
+
+    /**
+     * 生成永久二维码
+     */
+//    public function getForeverQrCode()
+//    {
+//        $access_token = getWxTestAccessToken();
+//        $url = 'https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=' . $access_token;
+//        $postArr = array(
+//            'action_name' => 'QR_LIMIT_SCENE',
+//            'action_info' => array(
+//                'scene' => array(
+//                    'scene_id' => 2000
+//                )
+//            )
+//        );
+//        $postJson = json_encode($postArr);
+//        $res = http_curl($url, 'post', 'json', $postJson);
+//        $ticket = $res['ticket'];
+//        $url2 = 'https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket=' . urlencode($ticket);
+//        echo('<img src="' . $url2 . '"/>');
+//    }
+
+    /**
      * 分享API
      */
     public function share()

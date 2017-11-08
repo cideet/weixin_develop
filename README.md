@@ -115,6 +115,12 @@ jsapi_ticket是公众号用于调用微信JS接口的临时票据 <br>
 设置 =》公众号设置 =》功能设置 =》JS接口安全域名 <br>
 开发 =》接口权限 =》网页授权 =》网页授权获取用户基本信息 <br>
 
+生成二维码接口 <br>
+一般用于账号绑定、获取来源等。<br>
+临时二维码 http://wx_tp3.vdouw.com/index.php/home/testaccount/gettimeqrcode <br>
+永久二维码 http://wx_tp3.vdouw.com/index.php/home/testaccount/getforeverqrcode <br>
+
+
 
 
 
