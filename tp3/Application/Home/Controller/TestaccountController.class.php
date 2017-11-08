@@ -254,10 +254,22 @@ class TestaccountController extends \Think\Controller
         $postStr = $GLOBALS['HTTP_RAW_POST_DATA'];
         $postObj = simplexml_load_string($postStr);
         if (strtolower($postObj->MsgType) == 'event') {
+            //订阅
             if (strtolower($postObj->Event == 'subscribe')) {
                 subscribe($postObj);
             }
-            if (strtolower($postObj->Event) == 'click') {  //自定义菜单中的click事件
+            //扫描二维码
+            if (strtolower($postObj->Event) == 'scan') {
+                if (strtolower($postObj->EventKey == 2000)) {
+                    $content = '如果是订阅后扫描临时二维码';
+                    replyOnlyText($postObj, $content);
+                } elseif (strtolower($postObj->EventKey == 3000)) {
+                    $content = '如果是订阅后扫描永久二维码';
+                    replyOnlyText($postObj, $content);
+                }
+            }
+            //自定义菜单中的click事件
+            if (strtolower($postObj->Event) == 'click') {
                 if (strtolower($postObj->EventKey) == 'item1') {  //事件KEY值，由开发者在创建菜单时设定
                     $content = '自定义菜单中的event=>click1';
                     replyOnlyText($postObj, $content);
