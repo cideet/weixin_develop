@@ -16,6 +16,33 @@ class TestaccountController extends \Think\Controller
     }
 
     /**
+     * 获取用户信息
+     */
+    public function getUserBaseInfo()
+    {
+        //1、获取到code
+        $appid = C('AppIDTest');
+        $redirect_uri = urlencode('http://wx_tp3.vdouw.com/index.php/home/testaccount/getUserOpenId');
+        $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . $appid . '&redirect_uri=' . $redirect_uri . '&response_type=code&scope=snsapi_base&state=123#wechat_redirect';
+        header('location:' . $url);
+    }
+
+    /**
+     * 获取用户openid
+     */
+    public function getUserOpenId()
+    {
+        //2、获取到网页授权的access_token
+        $code = $_GET['code'];
+        $appid = C('AppIDTest');
+        $AppSecretTest = C('AppSecretTest');
+        $url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . $appid . '&secret=' . $AppSecretTest . '&code=' . $code . '&grant_type=authorization_code';
+        //3、拉取用户的openid
+        $ret = http_curl($url, 'get');
+        var_dump($ret);
+    }
+
+    /**
      * 群发接口
      */
     public function sendMsgAll()
