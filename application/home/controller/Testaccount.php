@@ -70,7 +70,7 @@ class Testaccount extends \think\Controller
         $jsapi_ticket = getJsApiTicket();
         $nonceStr = getRandCode(16);
         $timestamp = time();
-        $url = 'http://wx_tp5.vdouw.com/index.php/home/testaccount/share';
+        $url = 'http://wx.vdouw.com/index.php/home/testaccount/share';
         //2、获取signature
         $signature = 'jsapi_ticket=' . $jsapi_ticket . '&noncestr=' . $nonceStr . '&timestamp=' . $timestamp . '&url=' . $url;
         $signature = sha1($signature);  //加密
@@ -88,7 +88,7 @@ class Testaccount extends \think\Controller
     public function getUserInfo()
     {
         $appid = config('AppIDTest');
-        $redirect_uri = urlencode('http://wx_tp5.vdouw.com/index.php/home/testaccount/getUserInfoNext');
+        $redirect_uri = urlencode('http://wx.vdouw.com/index.php/home/testaccount/getuserinfonext');
         $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . $appid . '&redirect_uri=' . $redirect_uri . '&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect';
         header('location:' . $url);
     }
@@ -98,7 +98,7 @@ class Testaccount extends \think\Controller
      */
     public function getUserInfoNext()
     {
-        $code = $_GET['code'];
+        $code = input('get.code');
         $appid = config('AppIDTest');
         $AppSecretTest = config('AppSecretTest');
         $url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . $appid . '&secret=' . $AppSecretTest . '&code=' . $code . '&grant_type=authorization_code';
@@ -118,7 +118,7 @@ class Testaccount extends \think\Controller
     {
         //1、获取到code
         $appid = config('AppIDTest');
-        $redirect_uri = urlencode('http://wx_tp5.vdouw.com/index.php/home/testaccount/getuseropenid');
+        $redirect_uri = urlencode('http://wx.vdouw.com/index.php/home/testaccount/getuseropenid');
         $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' . $appid . '&redirect_uri=' . $redirect_uri . '&response_type=code&scope=snsapi_base&state=123#wechat_redirect';
         header('location:' . $url);
     }
@@ -129,7 +129,7 @@ class Testaccount extends \think\Controller
     public function getUserOpenId()
     {
         //2、获取到网页授权的access_token
-        $code = $_GET['code'];
+        $code = input('get.code');
         $appid = config('AppIDTest');
         $AppSecretTest = config('AppSecretTest');
         $url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=' . $appid . '&secret=' . $AppSecretTest . '&code=' . $code . '&grant_type=authorization_code';
@@ -202,7 +202,7 @@ class Testaccount extends \think\Controller
         $url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=" . $access_token;
         $postArr = array(
             "button" => array(
-                array("name" => urlencode("分享页面"), "type" => "view", "url" => "http://wx_tp5.vdouw.com/index.php/home/testaccount/share"),
+                array("name" => urlencode("分享页面"), "type" => "view", "url" => "http://wx.vdouw.com/index.php/home/testaccount/share"),
                 array(
                     "name" => urlencode("菜单2"),
                     "sub_button" => array(
@@ -210,7 +210,7 @@ class Testaccount extends \think\Controller
                         array("name" => urlencode("链接到百度"), "type" => "view", "url" => "http://www.baidu.com")
                     )
                 ),
-                array("name" => urlencode("重置菜单"), "type" => "view", "url" => "http://wx_tp5.vdouw.com/index.php/home/testaccount/custommenu")
+                array("name" => urlencode("重置菜单"), "type" => "view", "url" => "http://wx.vdouw.com/index.php/home/testaccount/custommenu")
             ),
         );
         echo("<hr>");
@@ -230,11 +230,11 @@ class Testaccount extends \think\Controller
     public function index()
     {
         //1、将timestamp,nonce,token按字典序排序
-        $nonce = $_GET["nonce"];
-        $timestamp = $_GET["timestamp"];
+        $nonce = input("get.nonce");
+        $timestamp = input("get.timestamp");
         $token = config('token');
-        $signature = $_GET["signature"];
-        $echostr = $_GET["echostr"];
+        $signature = input("get.signature");
+        $echostr = input("get.echostr");
         //形成数组，然后按字典序排序
         $array = array($timestamp, $nonce, $token);
         sort($array);
@@ -286,7 +286,7 @@ class Testaccount extends \think\Controller
                     array(
                         'title' => 'imooc',
                         'description' => 'imooc is very cool!!!',
-                        'picUrl' => 'http://wx_tp3.vdouw.com/public/images/img.jpg',
+                        'picUrl' => 'http://wx.vdouw.com/images/img.jpg',
                         'url' => 'http://www.imooc.com'
                     )
                 );
@@ -296,19 +296,19 @@ class Testaccount extends \think\Controller
                     array(
                         'title' => 'imooc',
                         'description' => 'imooc is very cool!!!',
-                        'picUrl' => 'http://wx_tp3.vdouw.com/public/images/img.jpg',
+                        'picUrl' => 'http://wx.vdouw.com/images/img.jpg',
                         'url' => 'http://www.imooc.com'
                     ),
                     array(
                         'title' => '微豆网',
                         'description' => '微豆网 is very cool!!!',
-                        'picUrl' => 'http://wx_tp3.vdouw.com/public/images/img.jpg',
+                        'picUrl' => 'http://wx.vdouw.com/images/img.jpg',
                         'url' => 'http://blog.vdouw.com'
                     ),
                     array(
                         'title' => '微豆网111',
                         'description' => '微豆网 is very cool!!!',
-                        'picUrl' => 'http://wx_tp3.vdouw.com/public/images/img.jpg',
+                        'picUrl' => 'http://wx.vdouw.com/images/img.jpg',
                         'url' => 'http://blog.vdouw.com'
                     )
                 );
@@ -335,7 +335,7 @@ class Testaccount extends \think\Controller
                         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
                         $ret = curl_exec($ch);
                         curl_close($ch);
-                        if (curl_errno($ch)) var_dump(curl_error($ch));
+                        //if (curl_errno($ch)) var_dump(curl_error($ch));
                         $arr = json_decode($ret, true);  //JSON转数组
                         $content = "测试接口可用1000次";
                         $content .= "\n获取北京的天气：";

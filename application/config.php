@@ -16,8 +16,8 @@ return [
     // +----------------------------------------------------------------------
 
     // 正式上线时注释掉
-//    'app_debug' => true,                    // 应用调试模式
-//    'app_trace' => true,                    // 应用Trace
+    'app_debug' => true,                    // 应用调试模式
+    'app_trace' => true,                    // 应用Trace
 
     'app_namespace' => 'app',               // 应用命名空间
     'app_status' => '',                     // 应用模式状态

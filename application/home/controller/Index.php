@@ -27,11 +27,11 @@ class Index extends \think\Controller
     public function index()
     {
         //1、将timestamp,nonce,token按字典序排序
-        $nonce = $_GET["nonce"];
-        $timestamp = $_GET["timestamp"];
+        $nonce = input("get.nonce");
+        $timestamp = input("get.timestamp");
         $token = config('token');
-        $signature = $_GET["signature"];
-        $echostr = $_GET["echostr"];
+        $signature = input("get.signature");
+        $echostr = input("get.echostr");
         //形成数组，然后按字典序排序
         $array = array($timestamp, $nonce, $token);
         sort($array);
@@ -62,7 +62,7 @@ class Index extends \think\Controller
                     array(
                         'title' => 'imooc',
                         'description' => 'imooc is very cool!!!',
-                        'picUrl' => 'http://wx_tp3.vdouw.com/public/images/img.jpg',
+                        'picUrl' => 'http://wx.vdouw.com/images/img.jpg',
                         'url' => 'http://www.imooc.com'
                     )
                 );
@@ -72,19 +72,19 @@ class Index extends \think\Controller
                     array(
                         'title' => 'imooc',
                         'description' => 'imooc is very cool!!!',
-                        'picUrl' => 'http://wx_tp3.vdouw.com/public/images/img.jpg',
+                        'picUrl' => 'http://wx.vdouw.com/images/img.jpg',
                         'url' => 'http://www.imooc.com'
                     ),
                     array(
                         'title' => '微豆网',
                         'description' => '微豆网 is very cool!!!',
-                        'picUrl' => 'http://wx_tp3.vdouw.com/public/images/img.jpg',
+                        'picUrl' => 'http://wx.vdouw.com/images/img.jpg',
                         'url' => 'http://blog.vdouw.com'
                     ),
                     array(
                         'title' => '微豆网111',
                         'description' => '微豆网 is very cool!!!',
-                        'picUrl' => 'http://wx_tp3.vdouw.com/public/images/img.jpg',
+                        'picUrl' => 'http://wx.vdouw.com/images/img.jpg',
                         'url' => 'http://blog.vdouw.com'
                     )
                 );
@@ -167,7 +167,7 @@ class Index extends \think\Controller
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         $ret = curl_exec($ch);
         curl_close($ch);
-        if (curl_errno($ch)) var_dump(curl_error($ch));
+        //if (curl_errno($ch)) var_dump(curl_error($ch));
         $arr = json_decode($ret, true);  //JSON转数组
         echo(json_encode($arr));
         setcookie('access_token_test1', $arr['access_token']);
@@ -190,7 +190,7 @@ class Index extends \think\Controller
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         $ret = curl_exec($ch);
         curl_close($ch);
-        if (curl_errno($ch)) var_dump(curl_error($ch));
+        //if (curl_errno($ch)) var_dump(curl_error($ch));
         $arr = json_decode($ret, true);  //JSON转数组
         var_dump($arr);
     }

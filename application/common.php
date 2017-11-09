@@ -11,6 +11,11 @@
 
 // 应用公共文件
 
+/**
+ * 获取随机码
+ * @param int $len
+ * @return string
+ */
 function getRandCode($len = 16)
 {
     $array = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'j', 'k', 'm', 'n', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', '2', '3', '4', '5', '6', '7', '8', '9');
@@ -28,15 +33,15 @@ function getRandCode($len = 16)
  */
 function getJsApiTicket()
 {
-    if ($_SESSION['jsapi_ticket_expire_time'] > time() && $_SESSION['jsapi_ticket']) {
-        $jsapi_ticket = $_SESSION['jsapi_ticket'];
+    if (session("vdouw_weixin_jsapi_ticket_time_test", "", "weixin_test") > time() && session("vdouw_weixin_jsapi_ticket_test", "", "weixin_test")) {
+        $jsapi_ticket = session("vdouw_weixin_jsapi_ticket_test", "", "weixin_test");
     } else {
         $access_token = getWxTestAccessToken();
         $url = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=' . $access_token . '&type=jsapi';
         $res = http_curl($url);
         $jsapi_ticket = $res['ticket'];
-        $_SESSION['jsapi_ticket'] = $jsapi_ticket;
-        $_SESSION['jsapi_ticket_expire_time'] = time() + 7200;
+        session("vdouw_weixin_jsapi_ticket_test", $jsapi_ticket, "weixin_test");
+        session("vdouw_weixin_jsapi_ticket_time_test", time() + 7200, "weixin_test");
     }
     return $jsapi_ticket;
 }
@@ -62,11 +67,7 @@ function http_curl($url, $type = "get", $res = "json", $arr = "")
     $output = curl_exec($ch);
     curl_close($ch);
     if ($res == "json") {
-        if (curl_errno($ch)) {
-            return curl_error($ch);
-        } else {
-            return json_decode($output, true);  //转换成数组
-        }
+        return json_decode($output, true);  //转换成数组
     }
 }
 
@@ -76,16 +77,16 @@ function http_curl($url, $type = "get", $res = "json", $arr = "")
  */
 function getWxAccessToken()
 {
-    if ($_SESSION["vdouw_weixin_access_token"] && $_SESSION["expire_time"] > time()) {
-        return $_SESSION["vdouw_weixin_access_token"];
+    if (session("vdouw_weixin_access_token", "", "weixin") && session("vdouw_weixin_expire_time", "", "weixin") > time()) {
+        return session("vdouw_weixin_access_token", "", "weixin");
     } else {
         $appid = config('AppID');
         $appsecret = config('AppSecret');
         $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" . $appid . "&secret=" . $appsecret;
         $res = http_curl($url, "get", "json");
         $access_token = $res["access_token"];
-        $_SESSION["vdouw_weixin_access_token"] = $access_token;
-        $_SESSION["expire_time"] = time() + 7200;
+        session('vdouw_weixin_access_token', $access_token, 'weixin');
+        session('vdouw_weixin_expire_time', time() + 7200, 'weixin');
         return $access_token;
     }
 }
@@ -96,16 +97,16 @@ function getWxAccessToken()
  */
 function getWxTestAccessToken()
 {
-    if ($_SESSION["vdouw_weixin_access_token_test"] && $_SESSION["expire_time"] > time()) {
-        return $_SESSION["vdouw_weixin_access_token_test"];
+    if (session("vdouw_weixin_access_token_test", "", "weixin_test") && session("vdouw_weixin_expire_time_test", "", "weixin_test") > time()) {
+        return session("vdouw_weixin_access_token_test", "", "weixin_test");
     } else {
         $appid = config('AppIDTest');
         $appsecret = config('AppSecretTest');
         $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=" . $appid . "&secret=" . $appsecret;
         $res = http_curl($url, "get", "json");
         $access_token = $res["access_token"];
-        $_SESSION["access_token_test"] = $access_token;
-        $_SESSION["expire_time"] = time() + 7200;
+        session('vdouw_weixin_access_token_test', $access_token, 'weixin_test');
+        session('vdouw_weixin_expire_time_test', time() + 7200, 'weixin_test');
         return $access_token;
     }
 }
