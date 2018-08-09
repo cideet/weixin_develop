@@ -87,7 +87,7 @@ EventKey：事件KEY值，由开发者在创建菜单时设定 <br>
 
 微信网页授权 <br>
 查看详细 https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421140842 <br>
-网页授权获取用户基本信息=>修改=>授权回调页面域名 填入：wx_tp3.vdouw.com <br>
+网页授权获取用户基本信息=>修改=>授权回调页面域名 填入：wx.vdouw.com <br>
 草料二维码中输入 http://wx.vdouw.com/index.php/home/testaccount/getuserbaseinfo <br>
 微信扫描，即可得到用户的基本信息  <br>
 草料二维码中输入 http://wx.vdouw.com/index.php/home/testaccount/getuserinfo <br>
